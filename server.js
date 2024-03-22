@@ -9,6 +9,9 @@ import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import { config } from "dotenv";
 import staticRouter from "./routes/static.js";
+import baseController from "./controllers/baseController.js";
+import inventoryRoute from "./routes/inventoryRoute.js";
+
 config();
 
 const app = express();
@@ -28,9 +31,10 @@ app.set("layout", "./layouts/layout"); // not at views root
 app.use(staticRouter);
 
 // Index Route
-app.get("/", (req, res) => {
-  res.render("index", { title: "Home" });
-});
+app.get("/", baseController.buildHome);
+
+// Inventory routes
+app.use("/inv", inventoryRoute);
 
 /* ***********************
  * Local Server Information
