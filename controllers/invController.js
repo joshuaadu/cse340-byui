@@ -1,4 +1,7 @@
-import { getInventoryByClassificationId } from "../models/inventory-model.js";
+import {
+  getInventoryByClassificationId,
+  getInventoryById,
+} from "../models/inventory-model.js";
 import utilities from "../utilities/index.js";
 
 const invCont = {};
@@ -19,4 +22,18 @@ invCont.buildByClassificationId = async function (req, res, next) {
   });
 };
 
+/* ***************************
+ *  Build inventory detail view
+ * ************************** */
+invCont.buildDetail = async function (req, res, next) {
+  const id = req.params.id;
+  const data = await getInventoryById(id);
+  let nav = await utilities.getNav();
+  const details = await utilities.buildDetail(data);
+  res.render("./inventory/detail", {
+    title: data.inv_year + " " + data.inv_make + " " + data.inv_model,
+    nav,
+    details,
+  });
+};
 export default invCont;

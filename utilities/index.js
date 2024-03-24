@@ -2,6 +2,14 @@ import { getClassifications } from "../models/inventory-model.js";
 
 const Util = {};
 
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = (fn) => (req, res, next) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
+
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
@@ -81,4 +89,42 @@ Util.buildClassificationGrid = async function (data) {
   return grid;
 };
 
+/* **************************************
+ * Build the detail view HTML
+ * ************************************ */
+Util.buildDetail = async function (data) {
+  let details = '<div id="inv-detail-display">';
+  details +=
+    '<img src="' +
+    data.inv_image +
+    '" alt="Image of ' +
+    data.inv_make +
+    " " +
+    data.inv_model +
+    ' on CSE Motors" />';
+  details += '<div class="inv-details">';
+  details +=
+    "<h2><strong>" +
+    data.inv_make +
+    " " +
+    data.inv_model +
+    " Details" +
+    "</strong></h2>";
+  details += "<ul>";
+  details +=
+    "<li><strong>Price: $" +
+    new Intl.NumberFormat("en-US").format(data.inv_price) +
+    "</strong></li>";
+  details +=
+    "<li><strong>Description: </strong>" + data.inv_description + "</li>";
+  details += "<li><strong>Color:</strong> " + data.inv_color + "</li>";
+  details +=
+    "<li><strong>Miles:</strong> " +
+    new Intl.NumberFormat("en-US").format(data.inv_miles) +
+    "</li>";
+  details += "</ul>";
+  details += "</div>";
+  details += "</div>";
+  return details;
+};
 export default Util;
