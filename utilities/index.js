@@ -127,4 +127,6 @@ Util.buildDetail = async function (data) {
   details += "</div>";
   return details;
 };
+
+
 export default Util;
