@@ -826,6 +826,21 @@ video {
   font-weight: 500;
 }
 
+.form-group select {
+  padding: 0.5rem;
+  border-radius: 0.375rem /* 6px */;
+  border-style: solid;
+  border-width: 0.125rem /* 2px */;
+}
+
+.form-group select:required:invalid {
+  border-color: red;
+}
+
+.form-group select:required:valid {
+  border-color: green;
+}
+
 .register-link {
   color: #009ebd;
   font-weight: 500;
@@ -930,6 +945,18 @@ input:required:valid {
   width: 100%;
   height: 100%;
   /* flex: 1 1 0%; */
+}
+
+.management-links {
+  /* color: #009ebd; */
+  font-weight: 500;
+  text-decoration: underline;
+  font-size: 1.2rem;
+}
+
+.notice {
+  color: red;
+  font-weight: 500;
 }
 
 @media (min-width: 640px) {
