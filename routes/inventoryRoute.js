@@ -33,6 +33,15 @@ router.get(
   utilities.handleErrors(invController.buildAddInventory)
 );
 
+// Route to delete a vehicle view
+router.get(
+  "/delete/:inv_id",
+  utilities.handleErrors(invController.buildDeleteInventory)
+);
+
+// Route to delete a vehicle
+router.post("/delete", utilities.handleErrors(invController.deleteInventory));
+
 // Route to process the new vehicle form
 router.post(
   "/inventory",

@@ -149,3 +149,17 @@ export async function updateInventory(
     console.error("model error: " + error);
   }
 }
+
+/* ***************************
+ *  Delete Inventory Item
+ * ************************** */
+export async function deleteInventory(inv_id) {
+  try {
+    const sql = "DELETE FROM public.inventory WHERE inv_id = $1";
+    const data = await pool.query(sql, [inv_id]);
+    return data;
+  } catch (error) {
+    console.error("Delete Inventory Error: " + error);
+    new Error("Delete Inventory Error");
+  }
+}
