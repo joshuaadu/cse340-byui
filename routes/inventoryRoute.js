@@ -5,12 +5,23 @@ import utilities from "../utilities/index.js";
 import inventoryValidate from "../utilities/inventory-validation.js";
 
 // Route to Vehicle Management view
-router.get("/", utilities.handleErrors(invController.buildInventory));
+router.get("/", utilities.handleErrors(invController.buildManagementView));
 
 // Route to build inventory by classification view
 router.get(
   "/type/:classificationId",
   utilities.handleErrors(invController.buildByClassificationId)
+);
+
+// Route to get inventory by classification JSON
+router.get(
+  "/getInventory/:classification_id",
+  utilities.handleErrors(invController.getInventoryJSON)
+);
+
+router.get(
+  "/edit/:inv_id",
+  utilities.handleErrors(invController.buildEditInventory)
 );
 
 // Route to build inventory detail view
@@ -28,6 +39,14 @@ router.post(
   inventoryValidate.inventoryRules(),
   inventoryValidate.checkInventoryData,
   utilities.handleErrors(invController.addInventory)
+);
+
+// Route to process the update vehicle form
+router.post(
+  "/update/",
+  inventoryValidate.inventoryRules(),
+  inventoryValidate.checkUpdateData,
+  utilities.handleErrors(invController.updateInventory)
 );
 
 // Route to add a new classification view

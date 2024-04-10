@@ -192,4 +192,52 @@ validate.checkInventoryData = async (req, res, next) => {
   }
 };
 
+/*  **********************************
+ *  Inventory Data Validation Rules
+ * ********************************* */
+
+validate.checkUpdateData = async (req, res, next) => {
+  const {
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_color,
+    inv_price,
+    inv_image,
+    inv_description,
+    inv_miles,
+    inv_thumbnail,
+    classification_id,
+    inv_id,
+  } = req.body;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    let classificationList = await utilities.buildClassificationList(
+      classification_id
+    );
+    const itemName = `${inv_make} ${inv_model}`;
+    res.render("./inventory/edit-inventory", {
+      title: "Edit " + itemName,
+      nav,
+      errors: errors,
+      classificationList,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_color,
+      inv_price,
+      inv_image,
+      inv_description,
+      inv_miles,
+      inv_thumbnail,
+      inv_id,
+    });
+    return;
+  } else {
+    next();
+  }
+};
+
 export default validate;

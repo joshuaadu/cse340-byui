@@ -1,0 +1,143 @@
+<% if (title) { %>
+<h1 class="class-heading"><%= title %></h1>
+<% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+<div class="login-wrapper">
+  <form class="login-form" id="updateForm" action="/inv/update" method="post">
+    <div class="form-group">
+      <!-- <label for="classification_id">Classification</label>
+      <input
+        type="number"
+        id="classification_id"
+        name="classification_id"
+        class="form-control"
+        required
+      /> -->
+      <label for="classification_id">Classification Name</label>
+      <%- classificationList %>
+    </div>
+    <div class="form-group">
+      <label for="inv_make">Make</label>
+      <input
+        type="text"
+        id="inv_make"
+        name="inv_make"
+        class="form-control"
+        value="<%= locals.inv_make %>"
+        required
+        placeholder="Min of 3 characters."
+        title="Min of 3 characters."
+      />
+    </div>
+    <div class="form-group">
+      <label for="inv_model">Model</label>
+      <input
+        type="text"
+        id="inv_model"
+        name="inv_model"
+        class="form-control"
+        required
+        placeholder="Min of 3 characters."
+        title="Min of 3 characters."
+        value="<%= locals.inv_model %>"
+      />
+    </div>
+    <div class="form-group">
+      <label for="inv_year">Year</label>
+      <input
+        type="number"
+        id="inv_year"
+        name="inv_year"
+        class="form-control"
+        required
+        maxlength="4"
+        min="1900"
+        value="<%= locals.inv_year %>"
+        placeholder="4 digits only."
+        title="4 digits only."
+      />
+    </div>
+    <div class="form-group">
+      <label for="inv_description">Description</label>
+      <textarea
+        id="inv_description"
+        name="inv_description"
+        class="form-control"
+        required
+      >
+<%= locals.inv_description %></textarea
+      >
+    </div>
+    <div class="form-group">
+      <label for="inv_image">Image URL</label>
+      <input
+        type="text"
+        id="inv_image"
+        name="inv_image"
+        class="form-control"
+        value="<%= locals.inv_image %>"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="inv_thumbnail">Thumbnail URL</label>
+      <input
+        type="text"
+        id="inv_thumbnail"
+        name="inv_thumbnail"
+        class="form-control"
+        value="<%= locals.inv_thumbnail %>"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="inv_price">Price</label>
+      <input
+        type="number"
+        id="inv_price"
+        name="inv_price"
+        class="form-control"
+        value="<%= locals.inv_price %>"
+        placeholder="decimal or integer."
+        required
+        min="0"
+      />
+    </div>
+    <div class="form-group">
+      <label for="inv_miles">Miles</label>
+      <input
+        type="number"
+        id="inv_miles"
+        name="inv_miles"
+        class="form-control"
+        value="<%= locals.inv_miles %>"
+        required
+        placeholder="digits only."
+        min="0"
+      />
+    </div>
+    <div class="form-group">
+      <label for="inv_color">Color</label>
+      <input
+        type="text"
+        id="inv_color"
+        name="inv_color"
+        class="form-control"
+        value="<%= locals.inv_color %>"
+        required
+      />
+    </div>
+    <input type="hidden" name="inv_id" value="<%= locals.inv_id %>" />
+
+    <button type="submit" class="btn btn-primary" disabled>
+      Update Vehicle
+    </button>
+  </form>
+</div>
+<script src="/js/inv-update.js"></script>
+<% } else { res.redirect('/') } %> <%# messages() %>

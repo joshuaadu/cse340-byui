@@ -959,6 +959,50 @@ input:required:valid {
   font-weight: 500;
 }
 
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#inventoryDisplay th {
+  background-color: #009ebd;
+  color: #fff;
+  font-weight: 700;
+  padding: 0.5rem;
+}
+
+#inventoryDisplay td {
+  padding: 0.5rem;
+}
+
+#inventoryDisplay tr:nth-child(2n + 1) {
+  background-color: rgba(107, 103, 103, 0.1);
+}
+
+#inventoryDisplay tr:hover {
+  background-color: rgba(107, 103, 103, 0.3);
+}
+
+#inventoryDisplay a {
+  color: #009ebd;
+  font-weight: 500;
+}
+
+#inventoryDisplay a:hover {
+  color: #fff;
+}
+
+#inventoryDisplay a:visited {
+  color: #009ebd;
+}
+
+#classification_id {
+  padding: 0.5rem;
+  border-radius: 0.375rem /* 6px */;
+  border-style: solid;
+  border-width: 0.125rem /* 2px */;
+}
+
 @media (min-width: 640px) {
   .class-heading {
     font-size: 3.5rem /* 24px */;
