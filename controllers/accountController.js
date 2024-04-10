@@ -1,6 +1,12 @@
 import bcrypt from "bcryptjs";
 import utilities from "../utilities/index.js";
-import { registerAccount as registerAccModel } from "../models/account-model.js";
+import {
+  registerAccount as registerAccModel,
+  getAccountByEmail,
+} from "../models/account-model.js";
+import jwt from "jsonwebtoken";
+import { config } from "dotenv";
+config();
 /* ****************************************
  *  Deliver login view
  * *************************************** */
@@ -13,6 +19,46 @@ export async function buildLogin(req, res, next) {
   });
 }
 
+/* ****************************************
+ *  Process login request
+ * ************************************ */
+export async function accountLogin(req, res) {
+  let nav = await utilities.getNav();
+  const { account_email, account_password } = req.body;
+  const accountData = await getAccountByEmail(account_email);
+  if (!accountData) {
+    req.flash("notice", "Please check your credentials and try again.");
+    res.status(400).render("account/login", {
+      title: "Login",
+      nav,
+      errors: null,
+      account_email,
+    });
+    return;
+  }
+  try {
+    if (await bcrypt.compare(account_password, accountData.account_password)) {
+      delete accountData.account_password;
+      const accessToken = jwt.sign(
+        accountData,
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: 3600 }
+      );
+      if (process.env.NODE_ENV === "development") {
+        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
+      } else {
+        res.cookie("jwt", accessToken, {
+          httpOnly: true,
+          secure: true,
+          maxAge: 3600 * 1000,
+        });
+      }
+      return res.redirect("/account/");
+    }
+  } catch (error) {
+    return new Error("Access Forbidden");
+  }
+}
 /* ****************************************
  *  Deliver registration view
  * *************************************** */
@@ -79,4 +125,16 @@ export async function registerAccount(req, res) {
       errors: null,
     });
   }
+}
+
+/* ****************************************
+ *  Account Management View
+ * *************************************** */
+export async function buildManagement(req, res) {
+  let nav = await utilities.getNav();
+  res.render("account/management", {
+    title: "Account Management",
+    nav,
+    errors: null,
+  });
 }

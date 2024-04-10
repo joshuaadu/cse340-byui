@@ -13,6 +13,7 @@ import expressMessages from "express-messages";
 import flash from "connect-flash";
 import connect from "connect-pg-simple";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 
 import { pool } from "./database/index.js";
 import staticRouter from "./routes/static.js";
@@ -54,6 +55,12 @@ app.use(function (req, res, next) {
 // Body Parser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+// Cookie Parser Middleware
+app.use(cookieParser());
+
+// Check for JWT Token
+app.use(utilities.checkJWTToken);
 
 /* ***********************
  * View Engine and Templates

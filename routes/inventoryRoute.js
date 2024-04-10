@@ -27,7 +27,7 @@ router.post(
   "/inventory",
   inventoryValidate.inventoryRules(),
   inventoryValidate.checkInventoryData,
-  invController.addInventory
+  utilities.handleErrors(invController.addInventory)
 );
 
 // Route to add a new classification view

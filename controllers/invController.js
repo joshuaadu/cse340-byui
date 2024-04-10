@@ -14,16 +14,12 @@ const invCont = {};
  * ************************** */
 invCont.buildByClassificationId = async function (req, res, next) {
   const classification_id = req.params.classificationId;
-  console.log("classification_id", classification_id);
   const data = await getInventoryByClassificationId(classification_id);
-  console.log(data);
   const grid = await utilities.buildClassificationGrid(data);
-  console.log("Grid:", grid);
   let nav = await utilities.getNav();
   let retrunData = await getClassifications();
   let className = "No Classification Found";
   retrunData.rows.forEach((classification) => {
-    console.log({ classification });
     if (classification.classification_id == classification_id) {
       className = classification.classification_name;
     }
@@ -100,7 +96,6 @@ invCont.addClassification = async function (req, res) {
 invCont.buildAddInventory = async function (req, res) {
   let nav = await utilities.getNav();
   let classificationList = await utilities.buildClassificationList();
-  console.log("classificationList", classificationList);
   res.render("./inventory/inventory", {
     title: "Add New Vehicle",
     nav,
@@ -136,7 +131,6 @@ invCont.addInventory = async function (req, res) {
     inv_thumbnail,
     classification_id
   );
-  console.log("result", result);
   if (result.rowCount === 1) {
     req.flash("notice", "Vehicle added successfully.");
     res.redirect("/inv/");

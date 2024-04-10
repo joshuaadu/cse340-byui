@@ -3,6 +3,8 @@ import {
   buildLogin,
   buildRegister,
   registerAccount,
+  accountLogin,
+  buildManagement,
 } from "../controllers/accountController.js";
 const router = express.Router();
 import utilities from "../utilities/index.js";
@@ -23,7 +25,10 @@ router.post(
   "/login",
   accountValidate.loginRules(),
   accountValidate.checkLoginData,
-  utilities.handleErrors(registerAccount)
+  utilities.handleErrors(accountLogin)
 );
+
+// Route to management view
+router.get("/", utilities.checkLogin, utilities.handleErrors(buildManagement));
 
 export default router;
