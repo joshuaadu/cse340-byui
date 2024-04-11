@@ -2,7 +2,18 @@
   <h1 class="siteName text4xl md:text-6xl font-bold">
     <a href="/" title="Return to home page">CSE Motors</a>
   </h1>
-  <div id="tools" class="uppercase font-semibold">
+  <div
+    id="tools"
+    style="display: flex; gap: 1rem; align-items: center"
+    class="uppercase font-semibold"
+  >
+    <% if (locals.loggedin ) { %>
+    <a title="Click to view your account" href="/account"
+      >Welcome <%= locals.accountData.account_firstname %></a
+    >
+    <a title="Click to log out" href="/account/logout">Logout</a>
+    <% } else { %>
     <a title="Click to log in" href="/account/login">My Account</a>
+    <% } %>
   </div>
 </header>
