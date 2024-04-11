@@ -5,6 +5,10 @@ import {
   registerAccount,
   accountLogin,
   buildManagement,
+  buildEditAccount,
+  updateAccount,
+  updatePassword,
+  logout,
 } from "../controllers/accountController.js";
 const router = express.Router();
 import utilities from "../utilities/index.js";
@@ -29,11 +33,31 @@ router.post(
 );
 
 // Route to management view
-router.get(
-  "/",
+router.get("/", utilities.checkLogin, utilities.handleErrors(buildManagement));
+
+router.post(
+  "/update",
   utilities.checkLogin,
-  utilities.checkAccountType,
-  utilities.handleErrors(buildManagement)
+  accountValidate.updateAccountRules(),
+  accountValidate.checkAccountData,
+  updateAccount
+);
+
+router.post(
+  "/password",
+  utilities.checkLogin,
+  accountValidate.updatePasswordRules(),
+  accountValidate.checkAccountPasswordData,
+  utilities.handleErrors(updatePassword)
+);
+
+// Route to logout
+router.get("/logout", utilities.handleErrors(logout));
+
+router.get(
+  "/:id",
+  utilities.checkLogin,
+  utilities.handleErrors(buildEditAccount)
 );
 
 export default router;
