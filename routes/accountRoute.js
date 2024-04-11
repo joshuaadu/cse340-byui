@@ -29,6 +29,11 @@ router.post(
 );
 
 // Route to management view
-router.get("/", utilities.checkLogin, utilities.handleErrors(buildManagement));
+router.get(
+  "/",
+  utilities.checkLogin,
+  utilities.checkAccountType,
+  utilities.handleErrors(buildManagement)
+);
 
 export default router;
