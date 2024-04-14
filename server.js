@@ -83,6 +83,9 @@ app.use("/account", accountRoute);
 // Inventory routes
 app.use("/inv", inventoryRoute);
 
+// Order routes
+// app.use("/order", orderRoute);
+
 app.use("/internal-error", internalErrorRoute);
 
 // File Not Found Route - must be last route in list

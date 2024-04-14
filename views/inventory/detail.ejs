@@ -1,3 +1,17 @@
 <% if (title) { %>
 <h1 class="class-heading"><%= title %></h1>
-<% } else { res.redirect('/') } %> <%# messages() %> <%- details %>
+<% } else { res.redirect('/') } %> <%# messages() %> <%- details %> <% if
+(locals?.loggedin) { %>
+<form action="/inv/like" method="POST">
+  <input type="hidden" name="inv_id" value="<%= locals.inv_id %>" />
+  <button type="submit" class="btn btn-primary like-button">
+    <img src="/images/site/like.png" alt="Like" width="30" height="30" />
+  </button>
+</form>
+<% } else {%>
+<p style="color: blue; font-size: 16px">
+  <a href="/account/login" title="Click to login to like a vehicle"
+    >Log in to like this item</a
+  >
+</p>
+<% } %>

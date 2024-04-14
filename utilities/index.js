@@ -125,6 +125,7 @@ Util.buildDetail = async function (data) {
     "<li><strong>Miles:</strong> " +
     new Intl.NumberFormat("en-US").format(data.inv_miles) +
     "</li>";
+  details += "<li><strong>Likes:</strong> " + data.inv_likes + "</li>";
   details += "</ul>";
   details += "</div>";
   details += "</div>";

@@ -86,4 +86,12 @@ router.post(
   utilities.handleErrors(invController.addClassification)
 );
 
+// Route to like a vehicle
+router.post(
+  "/like",
+  // utilities.handleErrors(
+  invController.likeInventory
+  // )
+);
+
 export default router;

@@ -163,3 +163,18 @@ export async function deleteInventory(inv_id) {
     new Error("Delete Inventory Error");
   }
 }
+
+/* ***************************
+ *  Like an Inventory Item
+ * ************************** */
+export async function likeInventory(inv_id) {
+  try {
+    const sql =
+      "UPDATE public.inventory SET inv_likes = inv_likes + 1 WHERE inv_id = $1 RETURNING *";
+    const data = await pool.query(sql, [inv_id]);
+    return data.rows[0];
+  } catch (error) {
+    console.error("Like Inventory Error: " + error);
+    new Error("Like Inventory Error");
+  }
+}

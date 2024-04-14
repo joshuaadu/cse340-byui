@@ -1003,6 +1003,37 @@ input:required:valid {
   border-width: 0.125rem /* 2px */;
 }
 
+.like-button {
+  background-color: #009ebd;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.375rem /* 6px */;
+  border-style: solid;
+  border-width: 0.125rem /* 2px */;
+}
+
+.like-button:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.like-button:active {
+  background-color: #009ebd;
+  color: #fff;
+}
+
+.like-button:focus {
+  outline: none;
+}
+
+.like-button:active:focus {
+  outline: none;
+}
+
+.like-button:focus-visible {
+  outline: 2px solid #009ebd;
+}
+
 @media (min-width: 640px) {
   .class-heading {
     font-size: 3.5rem /* 24px */;

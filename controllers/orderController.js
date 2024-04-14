@@ -1,14 +1,6 @@
-import {
-  getInventoryByClassificationId,
-  getInventoryById,
-  addClassification,
-  addInventory,
-  updateInventory,
-  deleteInventory,
-  likeInventory,
-} from "../models/inventory-model.js";
+
 import utilities from "../utilities/index.js";
-import { getClassifications } from "../models/inventory-model.js";
+import { getClassifications } from "../models/order-model.js";
 
 const invCont = {};
 
@@ -47,7 +39,6 @@ invCont.buildDetail = async function (req, res, next) {
     title: data.inv_year + " " + data.inv_make + " " + data.inv_model,
     nav,
     details,
-    inv_id: data.inv_id,
     errors: null,
   });
 };
@@ -298,29 +289,6 @@ invCont.deleteInventory = async function (req, res) {
       inv_year,
       inv_price,
     });
-  }
-};
-
-/* ***************************
- *  Like a vehicle
- * ************************** */
-invCont.likeInventory = async function (req, res) {
-  const { inv_id } = req.body;
-  const data = await likeInventory(inv_id);
-  if (data) {
-    let nav = await utilities.getNav();
-    const details = await utilities.buildDetail(data);
-    req.flash("notice", "Vehicle liked successfully.");
-    res.render("./inventory/detail", {
-      title: data.inv_year + " " + data.inv_make + " " + data.inv_model,
-      nav,
-      details,
-      inv_id: data.inv_id,
-      errors: null,
-    });
-  } else {
-    req.flash("notice", "Sorry, the like failed.");
-    res.redirect("/inv/");
   }
 };
 
